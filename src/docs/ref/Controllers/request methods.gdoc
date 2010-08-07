@@ -1,0 +1,13 @@
+h1. Request Methods
+
+h2. request.ajax
+
+Checks if the request headers include a header "X-Requested-With" with a value of "XMLHttpRequest".
+ Default grails request.xhr also works in many occasions but does not check the value. For most applications
+ request.xhr is enough.
+
+h2. request.acceptsJs
+
+Checks if the Accept headers have the include at least one of the values "text/javascript" or "application/javascript".
+ Usually Ajax libraries include these values when a script request is made to the server. Tested only on [jQuery|http://www.jquery.com].
+

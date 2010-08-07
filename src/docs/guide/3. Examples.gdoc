@@ -1,0 +1,288 @@
+
+Some examples of code usage are as below
+
+*Simple assignment and Method call*
+{code}
+render( { jq ->
+            jq.ajax()
+            jq.ajax = 1
+            window.location = jq("a#main").attr("href")
+} as jQuery )
+{code}
+Renders as
+{code}
+        $.ajax({});
+        $.ajax = 1;
+        window.location = $("a#main").attr("href");
+{code}
+
+*Simple DOM replacement with jQuery*
+
+{code}
+render( { jq ->
+    jq("#message").html("Update successful.")
+    jq("#main").html( "templatedata")
+} as jQuery)
+{code}
+
+Renders as
+
+{code}
+        $("#message").html("Update successful.");
+        $("#main").html( "templatedata");
+{code}
+
+*Var definition*
+
+{code}
+render( {
+    var a
+    a=1
+    window.location.href="http://www.yahoo.com"
+} as Javascript)
+{code}
+Will render as
+{code}
+        var a;
+		a = 1;
+		window.location.href="http://www.yahoo.com";
+{code}
+
+Please note using var a = 1  will render var(1). You need to define and assign in separate statements. Currently this bug is being worked on.
+
+*Using this reference.*
+
+To use this(current) object reference you can use "This", as shown below.
+
+{code}
+render( { jq ->
+    jq(".remote").click( function(){
+        var url
+        url = jq(This).attr("href")
+        jq.script( url )
+    })
+} as jQuery)
+{code}
+
+Will render as
+
+{code}
+$(".remote").click( function(){
+    var url;
+    url = $(this).attr("href");
+    $.script(url);
+});
+{code}
+
+*Using Javascript closures or function objects*
+
+{code}
+render({ jq ->
+    jq(".remote").unbind().click( function(){ j ->
+        ele = j(This);
+        j.ajax([
+                url:ele.attr("href"),
+                dataType:"script",
+                method:"POST"
+        ])
+     });
+} as jQuery)
+{code}
+
+Renders as
+
+{code}
+$(".remote").unbind().click( function(){
+    ele = $(this);
+    $.ajax({
+        "url":ele.attr("href"),
+        "dataType":"script",
+        "method":"POST"
+    });
+});
+{code}
+
+*Operators*
+
+Almost all groovy operators are supported. Work is ongoing for implementing remaining operators.
+
+Note: Operators only work when the first operand is a yet undefined variable. Only this way the missing variables and methods are routed to script generator.
+
+Operator overloading may have unexpected results. For disambiguation use () as much as possible.
+{code}
+render( { jq ->
+    a = c+1
+    d = q*2
+    r = s+"abcd"
+    a = -b + 1
+    c=+q -1
+    a = b ^ c
+    a = (b & c)* 2 + 1
+    a = b | c
+    q = [1,2,3,4]
+    p = [ a:1, b:2]
+    q = ~n
+} as jQuery)
+{code}
+
+Renders as
+
+{code}
+a = (c+1);
+d = (q * 2);
+r = (s + "abcd");
+a = ((-b) + 1);
+c = ((+q) -1);
+a = (b^c);
+a = (((b&c)*2)+1);
+a =(b|c);
+q = [ 1,2,3,4];
+p = {"a":1,"b":2};
+q = (~n);
+{code}
+
+*As is text*
+
+Some code which cannot be generated or may not be support yet by this plugin can be generated using this method.
+{code}
+render( { jq ->
+    i = 0
+    asis("while(i<10){")
+    i=i+1
+    asis("}")
+    ele = "ele"
+    asis("for(var q=0;q<10;q++){")
+        jq( ele + q ).html("")
+    asis("}")
+} as jQuery)
+{code}
+Renders as
+{code}
+i=0;
+while( i < 10){
+i = (i+1);
+}
+ele = "ele";
+for( var q=0; q < 10; q++){
+    $(( ele + q) ).html("");
+}
+{code}
+
+*Function definition*
+{code}
+render( { jq ->
+    function(a,b){
+        jq.debug = 1
+        function(c,d){
+            jq.debug=1
+            function(d,e){
+                jq.redo()
+            }
+        }
+    }
+    function replace( sourceElement , targetElement){
+        jq(targetElement).html( jq(sourceElement).html() )
+    }
+} as jQuery)
+{code}
+
+Renders as
+
+{code}
+function(a,b){
+    $.debug=1;
+    function(c,d){
+        $.debug=1;
+        function(d,e){
+            $.redo();
+        };
+    };
+};
+function replace( sourceElement , targetElement){
+    $(targetElement).html( $(sourceElement).html() );
+};
+{code}
+
+
+*Complex example*
+{code}
+render( { jq ->
+    jq(document).ready( function(){
+        jq(".remote").click( function(){
+            var url
+            url = jq(This).attr("href");
+            jq.ajax([
+                    url:url,
+                    method:"POST",
+                    dataType:"script",
+                    onError:function(){
+                        alert("Server Error.")
+                    }
+            ]);
+        });
+    });
+} as jQuery)
+{code}
+Renders as
+{code}
+$(document).ready( function(){
+    $(".remote").click( function(){
+        var url;
+        url = $(this).attr("href");
+        $.ajax({
+                "url":url,
+                "method":"POST",
+                "dataType":"script",
+                "onError":function(){
+                    alert("Server Error.");
+                }
+        });
+    });
+});
+{code}
+
+*Using new operator for Object creation*
+As new is a keyword in groovy, some syntactic sugar is applied to get the same effect.
+{code}
+{
+    var a
+    a = new_Array(1,2,3)
+    a[0] = 3
+
+}
+{code}
+Renders as
+{code}
+var a;
+a = new Array(1,2,3);
+a[0] = 3;
+{code}
+
+*Using subscript operators for array access*
+{code}
+render( {
+    st[i] = (i*i);
+    a = items[0][0].name
+} as Javascript )
+{code}
+
+Will render as
+{code}
+st[i] = (i*i);
+a = items[0][0].name;
+{code}
+Note: Array access will not work for string indexes.
+
+*Helper Methods*
+
+Instead of importing converters and using as operator for conversion, you can also use helper methods on
+controllers.
+
+Please see [controllers|jqRender] or [controllers|jsRender] for details
+
+*Codecs*
+
+You can also use codecs to place generated javascript in views and other places where others methods are not
+possible.
+
+Please see [codecs|Jquery] or [codecs|Js] for details.

@@ -1,0 +1,20 @@
+h1. jsRender
+
+_Purpose_
+
+Renders a closure using Javascript converter. See User Guide for details on Javascript converter.
+
+_Example_ taken from demo application.
+{code}
+return jsRender{
+    if( params.offset != null){ //If from pager. Update only lists.
+        jQuery("#page").html( g.render( template:"page" , model:model) )
+        jq("#paging").html( g.render( template:"paging" , model: model ) )
+    }
+    else{
+        String s = g.render( template:"listPage", model:model )
+        jq("#main").html( s )
+    }
+}
+{code}
+

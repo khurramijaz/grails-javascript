@@ -1,0 +1,84 @@
+This plugin makes it easy to intermix groovy and javascript code similar to rjs templates in rails if you
+are familiar with rails. Infact the plugin provides no abstraction from javascript and you can use the same
+javascript syntax to generate client executable code with some insertions from server side.
+
+h3. Installation
+
+To install run
+
+grails install-plugin http://grails-javascript.googlecode.com/files/grails-javascript-0.1.zip
+
+in your project directory.
+
+h3. Demo Application
+
+A demo application has been developed to show case grails-javascript plugin. The application can be downloaded
+from http://grails-javascript.googlecode.com/files/javascript-demo.zip .
+
+h3. Usage
+
+The plugin is implemented as a set of converters and codecs. Two flavors of javascript are provided.
+ A standard javascript flavor and a jQuery flavor which has a syntax for $ based calls. jQuery flavor
+ is not bound to jQuery javascript library. The $ calls were made popular by jQuery and authors decided
+ to name this flavor jQuery too.
+
+*Converters*
+
+You can use converters on any closure objects.
+{code}
+import grails.converters.Javascript
+
+def error = {
+    if( request.js ){
+        render( {
+            jQuery("#error").html("There was an error processing your request. ${e.toString}");
+        } as Javascript)
+        return null
+    }
+}
+{code}
+
+Renders as follows
+{code}
+jQuery("#error").html("There was an error processing your request. Connection refused.");
+{code}
+
+Or if you like $ syntax
+{code}
+import grails.converters.jQuery
+
+def error = {
+    if( request.js ){
+        render( {jq ->
+            jq("#error").html("There was an error processing your request. ${e.toString}");
+        } as jQuery)
+        return null
+    }
+}
+{code}
+Renders as follows
+{code}
+$("#error").html("There was an error processing your request. Connection refused.");
+{code}
+
+
+*Codecs*
+
+Two codes are provided.
+    Jquery (Same as jQuery converter above)
+    Js (Same Javascript converter above)
+
+You can use these on any closure as
+{code}
+render {jq ->
+   jq("#error").html("There was an error processing your request. ${e.toString}");
+}.encodeAsJs()
+{code}
+
+Or
+
+{code}
+render {jq ->
+    jq("#error").html("There was an error processing your request. ${e.toString}");
+}.encodeAsJquery()
+{code}

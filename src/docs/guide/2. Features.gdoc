@@ -1,0 +1,24 @@
+
+h4. Currently implemented features
+
+ * Operators
+ ** +,-,/,%,
+ ** *,**,|,&,^,
+ ** Unary operators ~,-(Unary),+(Unary) are supported.
+ ** More are coming.
+ * Method calls
+ * All objects supported by JSON converter. Infact the plugin uses JSON converter to convert arguments.
+ * var i.e. local variable definition.
+ * new key with some syntactic sugar as new is a keyword in groovy.
+ * Subscript operator i.e. Array access.
+
+h4. Upcoming features
+ * gjs templates like rjs but with the power of groovy i.e. not just simple dom manipulation like in rjs. Work already in progress.
+ * Implementation of ++ and -- unary operators.
+ * Method and variable name obfuscation.
+ * Creation of a component based view library based on this plugin.
+
+*GJS templates*
+
+Current implementation(not yet released) adds a new Artefact to grails called JsTemplate . Similar to controllers
+closures in these classes will be treated as javascript closures. Your ideas are welcome in this regard.

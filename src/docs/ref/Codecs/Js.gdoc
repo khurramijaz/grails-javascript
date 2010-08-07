@@ -1,0 +1,15 @@
+h1. Js Codec
+
+Js codec can be used to convert a Closure to a Javascript object, which can be used anywhere to render
+ to a String. No imports required in this case.
+
+_Example_
+{code}
+{
+    jQuery("#main").show()
+}.encodeAsJs().toString()
+{code}
+_Output_
+{code}
+jQuery("#main").show();
+{code}
