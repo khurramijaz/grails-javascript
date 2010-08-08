@@ -24,7 +24,8 @@ public class DefaultPropertyHandler extends AbstractHandler implements PropertyH
 			m.appendOperator(".");
 		}
 		m.appendName(name );
-		
+		m.appendOperator("=");
+		m.appendValue(value);
 		//Returns true in call case as it is the default handler.
 		return true;
 	}

@@ -1,41 +1,38 @@
 package grails.converters
 
 import grails.test.*
-import mobi.econceptions.js.internal.json.JsMarshaller
+import mobi.econceptions.js.json.JsMarshaller
 import org.codehaus.groovy.grails.web.converters.ConverterUtil
-import grails.converters.jQuery
+
 import mobi.econceptions.js.JsConfig
-import org.apache.log4j.LogManager
-import org.apache.log4j.Level
-import org.apache.log4j.BasicConfigurator
+
+import mobi.econceptions.js.handlers.config.HandlerConfigurationInitializer
 
 
 class JQueryTests extends GrailsUnitTestCase {
-	def js ;
+	Javascript js ;
     protected void setUp() {
         super.setUp()
 	    JSON.registerObjectMarshaller(new JsMarshaller() , 100)
-	    js = new jQuery();
+	    js = new Javascript();
 	    JsConfig.debug = true;
 	    //BasicConfigurator.configure()
 
 		//LogManager.rootLogger.level = Level.DEBUG;
 	    //LogManager.getLogger("mobi.econceptions").level = Level.INFO
-	    Closure.metaClass.encodeAsJquery = {
-		    ConverterUtil.createConverter( jQuery , delegate )
-	    }
+		HandlerConfigurationInitializer.init( true )
 	    Closure.metaClass.asType = { Class z ->
 		    ConverterUtil.createConverter( z , delegate )
 	    }
     }
 	private void executeAndTestAsType(String expected, Closure c){
 		expected = expected.replaceAll(/\s+|\t|\r|\n/,"").replaceAll(/@/," ")
-		def ret = c.encodeAsJquery();
+		def ret = c.encodeAsJavascript();
 		assertEquals expected, ret.toString()
 	}
 	private void executeAndTestAsCodec(String expected , Closure c){
 		expected = expected.replaceAll(/\s+|\t|\r|\n/,"").replaceAll(/@/," ")
-		def ret = c as grails.converters.jQuery
+		def ret = c as Javascript
 		
 		assertEquals expected, ret.toString()
 	}

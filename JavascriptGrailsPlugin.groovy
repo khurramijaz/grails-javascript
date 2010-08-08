@@ -1,9 +1,10 @@
 
-import mobi.econceptions.js.internal.json.JsMarshallerRegisterer
+import mobi.econceptions.js.json.JsMarshallerRegisterer
 import org.codehaus.groovy.grails.web.converters.ConverterUtil
 import javax.servlet.http.HttpServletRequest
 import grails.converters.Javascript
-import grails.converters.jQuery
+import mobi.econceptions.js.handlers.config.HandlerConfigurationInitializer
+
 
 class JavascriptGrailsPlugin {
     // the plugin version
@@ -35,6 +36,7 @@ Javascript generator for grails. A prelude to gjs templates.
     def doWithSpring = {
         // TODO Implement runtime spring config (optional)
 	    jsMarshallerRegisterer(JsMarshallerRegisterer)
+	    handlerConfigurationInitializer(HandlerConfigurationInitializer)
     }
 
     def doWithDynamicMethods = { ctx ->
@@ -81,7 +83,7 @@ Javascript generator for grails. A prelude to gjs templates.
         for (controller in controllerClasses) {
             def mc = controller.metaClass
             mc.jsRender = jsRender
-	        mc.jqRender = jqRender
+	        
         }
 
     }
@@ -90,11 +92,7 @@ Javascript generator for grails. A prelude to gjs templates.
 		delegate.render( script )
 		return null //simpler one step return in controllers.
 	}
-	def jqRender = { Closure c ->
-		Javascript script = new jQuery( c )
-		delegate.render( script )
-		return null
-	}
+	
     def doWithApplicationContext = { applicationContext ->
         // TODO Implement post initialization spring config (optional)
     }

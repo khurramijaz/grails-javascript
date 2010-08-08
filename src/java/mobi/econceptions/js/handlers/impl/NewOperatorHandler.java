@@ -10,6 +10,7 @@ public class NewOperatorHandler extends DefaultMethodHandler{
 		int len = args.length;
 		if( name != null && name.length() > 4 && name.startsWith("new_") && ! (args[len-1] instanceof Closure)){
 			name = name.substring( 4 );
+			m.appendName("new ");
 			createMethod( m, name , args );
 			return true;
 		}

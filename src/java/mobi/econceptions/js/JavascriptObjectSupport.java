@@ -1,7 +1,7 @@
-package mobi.econceptions.js.internal;
+package mobi.econceptions.js;
 
 import groovy.lang.GroovyObjectSupport;
-import mobi.econceptions.js.Statement;
+
 
 
 public abstract class JavascriptObjectSupport extends GroovyObjectSupport{

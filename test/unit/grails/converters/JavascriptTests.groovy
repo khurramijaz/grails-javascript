@@ -1,7 +1,7 @@
 package grails.converters
 
 import grails.test.*
-import mobi.econceptions.js.internal.json.JsMarshaller
+import mobi.econceptions.js.json.JsMarshaller
 /**
  * Example use case.
  * def index ={

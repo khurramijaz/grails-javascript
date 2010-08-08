@@ -14,6 +14,7 @@ public class FunctionDefinitionHandler extends AbstractHandler implements Method
 		if( m.size() == 0 && "function".equals(name ) && args.length ==1  && areStatements( args )){
 			m.appendName( "function ");
 			m.appendValue( args[0]);
+			return true;
 		}
 		return false;  //To change body of implemented methods use File | Settings | File Templates.
 	}

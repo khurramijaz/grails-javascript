@@ -7,12 +7,6 @@ import mobi.econceptions.js.handlers.HandlerType;
 import mobi.econceptions.js.handlers.MethodHandler;
 
 import static mobi.econceptions.js.AccessUtils.*;
-/**
- * Created by IntelliJ IDEA.
- * User: khurram
- * Date: Aug 8, 2010
- * Time: 5:55:23 PM
- */
 public class DefaultMethodHandler extends AbstractHandler implements MethodHandler {
 
 	public DefaultMethodHandler(){
@@ -32,7 +26,11 @@ public class DefaultMethodHandler extends AbstractHandler implements MethodHandl
 		m.appendName(name);
 		m.appendOperator("(");
 		int end = args.length;
-		if( args[end-1] instanceof Closure)	end --;
+		if( end == 0 ){
+			m.appendOperator(")");
+			return;
+		}
+		if(  args[end-1] instanceof Closure)	end --;
 
 
 		boolean comma = false;

@@ -43,8 +43,13 @@ public class ConversionUtils {
 		return converted.substring( 1 ,  converted.length()-1 );
 		
 	}
-	public static void executeAndRender(Closure c , Writer out , StatementFactory stmts , ScriptHandlerFactory scripts) throws IOException{
+	/* public static void executeAndRender(Closure c , Writer out , StatementFactory stmts , ScriptHandlerFactory scripts) throws IOException{
 		Javascript script = Javascript.createJavascriptObject( stmts , scripts);
+		executeAndRender( script, c , out);
+	}*/
+	public static void executeAndRender(Closure c , Writer out ) throws IOException{
+		//Javascript script = Javascript.createJavascriptObject( stmts , scripts);
+		Javascript script = new Javascript();
 		executeAndRender( script, c , out);
 
 

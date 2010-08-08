@@ -2,13 +2,6 @@ package mobi.econceptions.js.handlers.impl;
 
 import mobi.econceptions.js.StatementMutator;
 
-/**
- * Created by IntelliJ IDEA.
- * User: khurram
- * Date: Aug 8, 2010
- * Time: 11:46:38 PM
-
- */
 public class VarDefinitionHandler extends FunctionDefinitionHandler{
 
 	@Override
@@ -21,6 +14,7 @@ public class VarDefinitionHandler extends FunctionDefinitionHandler{
 				m.appendValue( o );
 				comma = true;
 			}
+			return true;
 		}
 		return false;
 	}

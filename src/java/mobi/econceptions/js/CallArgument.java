@@ -1,7 +1,5 @@
 package mobi.econceptions.js;
 
-import mobi.econceptions.js.internal.JavascriptObjectSupport;
-
 public class CallArgument extends JavascriptObjectSupport{
 	private Javascript js;
 

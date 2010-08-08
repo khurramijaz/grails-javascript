@@ -19,6 +19,7 @@ public class BinaryOperatorHandler extends DefaultMethodHandler {
 		add("xor", "^");
 		add("AND" , "&&");
 		add("OR" , "||");
+		add("power","**");
 	}
 	public void add(String method,String op){
 		ops.put( method, op );
@@ -32,7 +33,7 @@ public class BinaryOperatorHandler extends DefaultMethodHandler {
 		
 
 		m.addNode( 0 , new Operator( "(")); // cover the expression in () so that js precedence is the same as groovy's 
-		m.appendName( name );
+		m.appendOperator( ops.get( name ) );
 		m.appendValue( args[0]);
 		m.appendOperator(")");
 

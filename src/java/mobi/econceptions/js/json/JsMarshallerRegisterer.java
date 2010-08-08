@@ -1,4 +1,4 @@
-package mobi.econceptions.js.internal.json;
+package mobi.econceptions.js.json;
 
 import grails.converters.JSON;
 import org.codehaus.groovy.grails.web.converters.configuration.ObjectMarshallerRegisterer;

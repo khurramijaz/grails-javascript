@@ -1,7 +1,5 @@
 package mobi.econceptions.js;
 
-import mobi.econceptions.js.internal.JavascriptObjectSupport;
-
 import mobi.econceptions.js.nodes.Name;
 import mobi.econceptions.js.nodes.Node;
 import mobi.econceptions.js.nodes.Operator;
@@ -22,16 +20,16 @@ public class Statement extends JavascriptObjectSupport {
 	long id = 0L;
 	private Logger log = LogManager.getLogger( Statement.class);
 	boolean debug = JsConfig.debug;
-	private Javascript javascript;
+
 	private LinkedList<Node> nodes = new LinkedList<Node>();
-	StatementMutator mutator = new DefaultStatementMutator();
-
 	private boolean plainText = false;
-
 	private boolean parameter = false;
-	
+
+	private Javascript javascript;
 	private ScriptHandler handler;
 
+	StatementMutator mutator = new DefaultStatementMutator();
+	
 	public Statement(Javascript js , ScriptHandler handler){
 		this.javascript = js;
 		debug = js.debug;

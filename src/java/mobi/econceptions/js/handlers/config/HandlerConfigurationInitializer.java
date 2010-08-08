@@ -1,9 +1,16 @@
 package mobi.econceptions.js.handlers.config;
 
 import mobi.econceptions.js.handlers.impl.*;
+import org.codehaus.groovy.grails.commons.ConfigurationHolder;
+import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 
-public class HandlerConfigurationInitializer {
+
+import java.util.Map;
+
+public class HandlerConfigurationInitializer implements InitializingBean, ApplicationContextAware{
 
 
 	public static void init( boolean emptyHandler ){
@@ -21,7 +28,7 @@ public class HandlerConfigurationInitializer {
 		}
 		int i = 1;
 		//Add property handlers.
-
+		config.addPropertyHandler( new ThisReferenceHandler(), i++);
 		//Add Method handlers.
 		i = 1;
 		config.addMethodHandler( new AsisMethodHandler(), i++);
@@ -39,4 +46,20 @@ public class HandlerConfigurationInitializer {
 
 	}
 
+	public void afterPropertiesSet() throws Exception {
+		Map config = ConfigurationHolder.getFlatConfig();
+		boolean useEmpty = true;
+		if( config.containsKey("javascript.useEmptyHandler")){
+			try{
+				useEmpty = Boolean.parseBoolean(config.get("javascript.useEmptyHandler").toString());
+			}catch(Exception e){
+				
+			}
+		}
+		init( context , useEmpty );
+	}
+	ApplicationContext context;
+	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+		context = applicationContext;
+	}
 }

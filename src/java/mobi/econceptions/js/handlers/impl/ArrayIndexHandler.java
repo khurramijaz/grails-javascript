@@ -4,12 +4,6 @@ import mobi.econceptions.js.StatementMutator;
 import mobi.econceptions.js.handlers.HandlerType;
 import mobi.econceptions.js.handlers.MethodHandler;
 
-/**
- * Created by IntelliJ IDEA.
- * User: khurram
- * Date: Aug 8, 2010
- * Time: 11:53:03 PM
- */
 public class ArrayIndexHandler extends AbstractHandler implements MethodHandler{
 
 	public ArrayIndexHandler(){

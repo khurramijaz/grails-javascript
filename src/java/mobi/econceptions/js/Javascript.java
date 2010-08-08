@@ -1,7 +1,6 @@
 package mobi.econceptions.js;
 
 import groovy.lang.Closure;
-import mobi.econceptions.js.internal.JavascriptObjectSupport;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -17,25 +16,29 @@ public class Javascript extends JavascriptObjectSupport {
 	private LinkedList<Statement> statements = new LinkedList<Statement>();
 	private Javascript current;
 	private Javascript parent;
-	private StatementFactory statementFactory;
+	//private StatementFactory statementFactory;
 	private ScriptHandler scriptHandler;
 
-	public static Javascript createJavascriptObject(StatementFactory stmtFactory , ScriptHandlerFactory scriptFactory){
+	/*public static Javascript createJavascriptObject(StatementFactory stmtFactory , ScriptHandlerFactory scriptFactory){
 		return new Javascript( stmtFactory , scriptFactory );
-	}
+	}*/
 	protected Javascript(Javascript parent){
-		this( parent.statementFactory , parent.scriptHandler );
+	//	this( parent.statementFactory , parent.scriptHandler );
 		this.parent = parent;
 		debug = parent.debug;
+		this.scriptHandler = parent.scriptHandler;
 
 	}
-	protected Javascript(StatementFactory stmtFactory , ScriptHandlerFactory factory){
+	public Javascript(){
+		scriptHandler = new ScriptGenerator();
+	}
+	/*protected Javascript(StatementFactory stmtFactory , ScriptHandlerFactory factory){
 		this( stmtFactory , factory.createScriptHandler());
 	}
 	protected Javascript(StatementFactory stmtFactory , ScriptHandler handler){
 		statementFactory = stmtFactory;
 		scriptHandler = handler;
-	}
+	}*/
 	
 	public Statement methodMissing(String name, Object args){
 		if( current != null ){
@@ -61,7 +64,7 @@ public class Javascript extends JavascriptObjectSupport {
 		Statement stmt = createStatement();
 		stmt.propertyMissing(name, arg);
 	}
-	protected Statement call(Object[] args){
+	/*protected Statement call(Object[] args){
 		if( current != null ) return current.call( args );
 		Statement stmt = createStatement();
 		scriptHandler.callPrefix( stmt.getMutator());
@@ -88,9 +91,10 @@ public class Javascript extends JavascriptObjectSupport {
 		Statement stmt = createStatement();
 		scriptHandler.callPrefix( stmt.getMutator() );
 		return stmt.methodMissing( name, args);
-	}
+	}*/
 	private Statement createStatement(){
-		Statement stmt = statementFactory.newStatement( this , scriptHandler );
+		//Statement stmt = statementFactory.newStatement( this , scriptHandler );
+		Statement stmt = new Statement(this, scriptHandler);
 		statements.add( stmt );
 		if( debug) log.info("Statement added " + statements.size());
 		return stmt;
@@ -123,9 +127,9 @@ public class Javascript extends JavascriptObjectSupport {
 			return scriptHandler;
 		}
 
-		public StatementFactory getStatementFactory() {
+		/*public StatementFactory getStatementFactory() {
 			return statementFactory;
-		}
+		}*/
 
 		public void execute(Closure c) {
 			Javascript.this.execute(c);
