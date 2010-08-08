@@ -8,7 +8,7 @@ import mobi.econceptions.js.handlers.config.HandlerConfigurationInitializer
 
 class JavascriptGrailsPlugin {
     // the plugin version
-    def version = "0.1"
+    def version = "0.2"
     // the version or versions of Grails the plugin is designed for
     def grailsVersion = "1.3.2 > *"
     // the other plugins this plugin depends on
@@ -103,7 +103,7 @@ Javascript generator for grails. A prelude to gjs templates.
         // event.application, event.manager, event.ctx, and event.plugin.
 	    def mc = event.source.metaClass
 	    mc.jsRender = jsRender
-	    mc.jqRender = jqRender
+	    
     }
 
     def onConfigChange = { event ->

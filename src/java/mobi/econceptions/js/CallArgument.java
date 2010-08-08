@@ -14,6 +14,9 @@ public class CallArgument extends JavascriptObjectSupport{
 
 	}
 	public Statement methodMissing(String name, Object args){
+		if(! "call".equals(name )){
+			return js.propertyMissing("").methodMissing(name, args );
+		}
 		return js.methodMissing(name, args );
 		//return js.callMethod( name , args);
 	}

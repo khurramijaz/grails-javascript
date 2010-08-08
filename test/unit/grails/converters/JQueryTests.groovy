@@ -7,6 +7,7 @@ import org.codehaus.groovy.grails.web.converters.ConverterUtil
 import mobi.econceptions.js.JsConfig
 
 import mobi.econceptions.js.handlers.config.HandlerConfigurationInitializer
+import codecs.JsCodec
 
 
 class JQueryTests extends GrailsUnitTestCase {
@@ -24,16 +25,24 @@ class JQueryTests extends GrailsUnitTestCase {
 	    Closure.metaClass.asType = { Class z ->
 		    ConverterUtil.createConverter( z , delegate )
 	    }
+	    Closure.metaClass.encodeAsJs = {
+		    JsCodec.encode( delegate )
+	    }
     }
-	private void executeAndTestAsType(String expected, Closure c){
+	private void executeAndTestAsCodec(String expected, Closure c){
 		expected = expected.replaceAll(/\s+|\t|\r|\n/,"").replaceAll(/@/," ")
-		def ret = c.encodeAsJavascript();
+		def ret = c.encodeAsJs();
+		println("Testing as codec:")
+		println( expected )
+		println( ret )
 		assertEquals expected, ret.toString()
 	}
-	private void executeAndTestAsCodec(String expected , Closure c){
+	private void executeAndTestAsType(String expected , Closure c){
 		expected = expected.replaceAll(/\s+|\t|\r|\n/,"").replaceAll(/@/," ")
-		def ret = c as Javascript
-		
+		def ret = (c as Javascript)
+		println("Testing as type:")
+		println( expected )
+		println( ret.toString() )
 		assertEquals expected, ret.toString()
 	}
 	private void executeAndRender( String expected , Closure c){
@@ -68,7 +77,15 @@ class JQueryTests extends GrailsUnitTestCase {
 			jq.ajax = 1
 		}
 		executeAndRender expected,c
+		c = { jq ->
+			jq.ajax([:])
+			jq.ajax = 1
+		}
 		executeAndTestAsType( expected , c )
+		c = { jq ->
+			jq.ajax([:])
+			jq.ajax = 1
+		}
 		executeAndTestAsCodec( expected , c )
 	}
 	/**

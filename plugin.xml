@@ -1,4 +1,4 @@
-<plugin name='javascript' version='0.1' grailsVersion='1.3.2 &gt; *'>
+<plugin name='javascript' version='0.2' grailsVersion='1.3.2 &gt; *'>
   <author>Khurram Ijaz</author>
   <authorEmail>khurramijaz@gmail.com</authorEmail>
   <title>Grails javascript generator.</title>
@@ -8,8 +8,7 @@ Javascript generator for grails. A prelude to gjs templates.
   <documentation>http://grails.org/plugin/javascript</documentation>
   <resources>
     <resource>Config</resource>
-    <resource>JqueryCodec</resource>
-    <resource>JsCodec</resource>
+    <resource>codecs.JsCodec</resource>
   </resources>
   <dependencies>
     <plugin name='converters' version='1.3.2' />

@@ -1,6 +1,8 @@
+package codecs
+
 import grails.converters.Javascript
 class JsCodec {
 	static encode = { target ->
-		return target as Javascript;
+		return  new Javascript(target);
 	}
 }

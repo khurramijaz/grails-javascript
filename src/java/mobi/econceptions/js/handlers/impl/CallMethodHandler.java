@@ -8,7 +8,8 @@ public class CallMethodHandler extends DefaultMethodHandler{
 	public boolean methodMissing(StatementMutator m, String name, Object[] args) {
 		if( m.size() == 0 && "call".equals( name )){// Only replace if first.
 			name = "$";
+
 		}
-		return super.methodMissing(m, name, args);    //To change body of overridden methods use File | Settings | File Templates.
+		return super.methodMissing(m, name, args);
 	}
 }
