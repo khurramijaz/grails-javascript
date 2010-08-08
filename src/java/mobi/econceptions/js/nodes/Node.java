@@ -1,4 +1,6 @@
-package mobi.econceptions.js;
+package mobi.econceptions.js.nodes;
+
+import mobi.econceptions.js.Statement;
 
 import java.util.LinkedList;
 

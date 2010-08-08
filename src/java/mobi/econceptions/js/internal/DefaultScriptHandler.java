@@ -3,6 +3,8 @@ package mobi.econceptions.js.internal;
 import groovy.lang.Closure;
 import groovy.lang.GString;
 import mobi.econceptions.js.*;
+import mobi.econceptions.js.nodes.Name;
+import mobi.econceptions.js.nodes.Operator;
 
 import static mobi.econceptions.js.AccessUtils.*;
 import java.util.HashMap;
@@ -170,7 +172,7 @@ public class DefaultScriptHandler implements ScriptHandler {
 	protected boolean newObject(StatementMutator m ,String name, Object[] args){
 		if( m.size() == 0){
 			callMethod(m,name, args);
-			m.addNode(0 , new Name("new "));//For future 
+			m.addNode(0 , new Name("new "));//For future
 			return true;
 		}
 		return false;

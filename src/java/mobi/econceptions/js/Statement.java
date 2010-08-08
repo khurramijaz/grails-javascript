@@ -2,6 +2,10 @@ package mobi.econceptions.js;
 
 import mobi.econceptions.js.internal.JavascriptObjectSupport;
 
+import mobi.econceptions.js.nodes.Name;
+import mobi.econceptions.js.nodes.Node;
+import mobi.econceptions.js.nodes.Operator;
+import mobi.econceptions.js.nodes.Value;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 

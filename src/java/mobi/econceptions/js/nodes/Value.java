@@ -1,4 +1,10 @@
-package mobi.econceptions.js;
+package mobi.econceptions.js.nodes;
+
+
+import mobi.econceptions.js.Javascript;
+import mobi.econceptions.js.JavascriptMutator;
+import mobi.econceptions.js.Statement;
+import mobi.econceptions.js.StatementMutator;
 
 
 import java.util.LinkedList;
@@ -7,7 +13,7 @@ import static mobi.econceptions.js.ConversionUtils.*;
 import static mobi.econceptions.js.AccessUtils.*;
 
 
-public class Value extends Node{
+public class Value extends Node {
 	Object jsonObject;
 	public Value(Object jsonObject){
 		this.jsonObject = jsonObject;
@@ -25,7 +31,7 @@ public class Value extends Node{
 			m.render( list );
 			return;
 		}
-		else if( jsonObject instanceof Javascript ){
+		else if( jsonObject instanceof Javascript){
 			JavascriptMutator m = mutator( (Javascript)jsonObject );
 			m.render( list );
 			return;

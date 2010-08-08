@@ -1,6 +1,8 @@
-package mobi.econceptions.js;
+package mobi.econceptions.js.nodes;
 
-public class Name extends Node{
+
+
+public class Name extends Node {
 	String name;
 	public Name(String name){
 		this.name = name;

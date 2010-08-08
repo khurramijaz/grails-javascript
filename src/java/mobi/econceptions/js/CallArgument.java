@@ -9,12 +9,14 @@ public class CallArgument extends JavascriptObjectSupport{
 		this.js = js;
 	}
 	public Statement propertyMissing(String name){
-		return js.callProperty(name);
+		return js.propertyMissing("").propertyMissing(name);
 	}
 	public void propertyMissing(String name, Object value){
-		js.callProperty(name,value);
+		js.propertyMissing("").propertyMissing( name , value);
+
 	}
 	public Statement methodMissing(String name, Object args){
-		return js.callMethod( name , args);
+		return js.methodMissing(name, args );
+		//return js.callMethod( name , args);
 	}
 }
