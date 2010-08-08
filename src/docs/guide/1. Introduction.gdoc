@@ -6,25 +6,22 @@ h3. Installation
 
 To install run
 
-grails install-plugin http://grails-javascript.googlecode.com/files/grails-javascript-0.1.zip
+grails install-plugin http://grails-javascript.googlecode.com/files/grails-javascript-0.2.zip
 
 in your project directory.
 
 h3. Demo Application
 
 A demo application has been developed to show case grails-javascript plugin. The application can be downloaded
-from http://grails-javascript.googlecode.com/files/javascript-demo.zip .
+from http://grails-javascript.googlecode.com/files/javascript-demo-0.2.zip .
 
 h3. Usage
 
-The plugin is implemented as a set of converters and codecs. Two flavors of javascript are provided.
- A standard javascript flavor and a jQuery flavor which has a syntax for $ based calls. jQuery flavor
- is not bound to jQuery javascript library. The $ calls were made popular by jQuery and authors decided
- to name this flavor jQuery too.
+The plugin can be used as a Converter, Codec or with a controller helper method.
 
-*Converters*
+*Converter*
 
-You can use converters on any closure objects.
+You can use Javascript converter on any closure objects.
 {code}
 import grails.converters.Javascript
 
@@ -45,7 +42,7 @@ jQuery("#error").html("There was an error processing your request. Connection re
 
 Or if you like $ syntax
 {code}
-import grails.converters.jQuery
+import grails.converters.Javascript
 
 def error = {
     if( request.js ){
@@ -62,23 +59,29 @@ $("#error").html("There was an error processing your request. Connection refused
 {code}
 
 
-*Codecs*
+*Codec*
 
-Two codes are provided.
-    Jquery (Same as jQuery converter above)
-    Js (Same Javascript converter above)
 
-You can use these on any closure as
+You can use the codec on an closure similar to converter.
 {code}
 render {jq ->
    jq("#error").html("There was an error processing your request. ${e.toString}");
 }.encodeAsJs()
 {code}
 
-Or
+
+
+*Controller helper*
+
+Controller helper method is named as jsRender and you can pass in a closure to generate javascript similar
+to methods above.
 
 {code}
-render {jq ->
-    jq("#error").html("There was an error processing your request. ${e.toString}");
-}.encodeAsJquery()
+jsRender {jq ->
+   jq("#error").html("There was an error processing your request. ${e.toString}");
+}
 {code}
+
+{note}
+For 0.1 version users, Jquery converter, codec and helper is now obselete. $ syntax is now applicable everywhere.
+{note}

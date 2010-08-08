@@ -20,5 +20,5 @@ h4. Upcoming features
 
 *GJS templates*
 
-Current implementation(not yet released) adds a new Artefact to grails called JsTemplate . Similar to controllers
+Current beta implementation(not yet released) adds a new Artefact to grails called JsTemplate . Similar to controllers
 closures in these classes will be treated as javascript closures. Your ideas are welcome in this regard.

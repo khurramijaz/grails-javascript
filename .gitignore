@@ -1,3 +1,4 @@
 /target/
 stacktrace.log
 *.zip
+*.iml
