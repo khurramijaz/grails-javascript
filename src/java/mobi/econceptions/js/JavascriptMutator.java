@@ -11,7 +11,6 @@ public interface JavascriptMutator {
 	public void execute(Closure c);
 	public boolean render(LinkedList<Object> r);
 	public LinkedList<Statement> getStatements();
-	//public StatementFactory getStatementFactory();
 	public ScriptHandler getScriptHandler();
 	public Javascript createChild();
 }

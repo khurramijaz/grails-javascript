@@ -18,6 +18,5 @@ public class CallArgument extends JavascriptObjectSupport{
 			return js.propertyMissing("").methodMissing(name, args );
 		}
 		return js.methodMissing(name, args );
-		//return js.callMethod( name , args);
 	}
 }
